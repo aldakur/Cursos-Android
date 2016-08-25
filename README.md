@@ -1,6 +1,7 @@
-- CursoAndroid - 
+Curso- Android
+=============== 
 
-Poryectos realizados en distintos cursos con diferentes objetivos.
+Proyectos realizados en distintos cursos con diferentes objetivos.
 
-+"Curso para consumir servicios web con Android"
++ "Curso para consumir servicios web con Android"
 
