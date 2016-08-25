@@ -1,14 +1,11 @@
 package service.webservice.facilito.codigo.com.ejemplocfwebservices;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -17,24 +14,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.Adapters.MyAdapter;
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.Adapters.UsuariosAdapter;
 import service.webservice.facilito.codigo.com.ejemplocfwebservices.POJO.Usuario;
 import service.webservice.facilito.codigo.com.ejemplocfwebservices.Parses.UsuarioJSONParser;
 import service.webservice.facilito.codigo.com.ejemplocfwebservices.Parses.UsuarioXMLParser;
 
-public class MainActivity extends AppCompatActivity {
-    Button buttonJSONparse, buttonXMLparse, buttonGETandPOST, botonGet, botonPost;
+public class JsonActivity extends AppCompatActivity {
+
+    Button buttonCargarDatos;
     TextView textView;
     ProgressBar progressBar;
     String method;
-    //List<MyTask> taskList; //Lista de hilos
-    //List<Usuario> usuarioList;
+    // List<MyTask> taskList; //Lista de hilos
+    List<Usuario> usuarioList;
 
-    // ListView listView;
+    ListView listView;
     // MyAdapter adapter;
 
 
@@ -45,44 +40,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_json);
 
-        botonGet = (Button) findViewById(R.id.botonget);
-        botonPost = (Button) findViewById(R.id.botonpost);
-
-        buttonJSONparse = (Button) findViewById(R.id.button_jsonparse);
-        buttonXMLparse = (Button) findViewById(R.id.button_xmlparse);
-        buttonGETandPOST = (Button) findViewById(R.id.button_getandpost);
-
-        buttonGETandPOST.setOnClickListener(new View.OnClickListener() {
+        buttonCargarDatos = (Button) findViewById(R.id.button_cargardatos_activity_json);
+        buttonCargarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GetAndPostActivity.class);
-                startActivity(intent);
+                if(isOnLine()){
+                    // pedirDatos("http://www.harrika.net/usuarios.xml");
+                    pedirDatos("http://maloschistes.com/maloschistes.com/jose/webservice.php"); //JSON sin seguridad
+                    // pedirDatos("http://maloschistes.com/maloschistes.com/jose/s/webservice.php");
+                    // pedirDatos("http://maloschistes.com/maloschistes.com/jose/webserviceI.php"); // Webservices con las imagenes en el apartado Twitter
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Sin conexión", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
-        buttonXMLparse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), XmlActivity.class);
-                startActivity(intent);
-            }
-        });
+        textView = (TextView) findViewById(R.id.textview_activity_json);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_activity_json);
+        progressBar.setVisibility(View.INVISIBLE);
 
-        buttonJSONparse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JsonActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //textView = (TextView) findViewById(R.id.textview);
-        //progressBar = (ProgressBar) findViewById(R.id.progressbar);
-        //progressBar.setVisibility(View.INVISIBLE);
-
-        // listView = (ListView) findViewById(R.id.listview);
+        //listView = (ListView) findViewById(R.id.listview_activity_xml);
         //recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         //linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -91,21 +72,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // textView.setMovementMethod(new ScrollingMovementMethod()); // android:scrollbars="vertical" kodeari kaso egiteko
+        textView.setMovementMethod(new ScrollingMovementMethod()); // Para hacer caso al código -> android:scrollbars="vertical"
 
-        //taskList = new ArrayList<>(); // Inicializamos la lista
+        // taskList = new ArrayList<>(); // Inicializamos la lista
 
 
     }
 
-    public void cargarDatos(String datos){
-       textView.append(datos+"\n"); // Unimos los datos (lo que sería la URL con los parametros GET)
-       /* if(usuarioList != null){
+    public void cargarDatos(){
+        // textView.append(datos+"\n"); // Unimos los datos (lo que sería la URL con los parametros GET)
+        if(usuarioList != null){
             for (Usuario usuario: usuarioList) { // foreach
-                textView.append(usuario.getNombre()+"\n");
+                textView.append(usuario.getTwitter()+"\n"); // para recoger el twitter del usuario. También podríamos recoger el "id" y el "nombre"
 
             }
-        }*/
+        }
         // adapter = new MyAdapter(getApplicationContext(), usuarioList);
         // listView.setAdapter(adapter);
 
@@ -130,31 +111,31 @@ public class MainActivity extends AppCompatActivity {
     public void pedirDatos(String uri){
         MyTask task = new MyTask();
         //task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        //task.execute(uri);
-        RequestPackage requestPackage = new RequestPackage();
+        task.execute(uri);
+        //RequestPackage requestPackage = new RequestPackage();
         // requestPackage.setMethod("GET");
         // requestPackage.setMethod("POST");
-        requestPackage.setMethod(method);
-        requestPackage.setUri(uri);
-        requestPackage.setParam("parametro1", "valor1");
-        requestPackage.setParam("parametro2", "valor2");
-        requestPackage.setParam("parametro3", "valor3");
-        requestPackage.setParam("parametro4", "valor4");
+        //requestPackage.setMethod(method);
+        //requestPackage.setUri(uri);
+        //requestPackage.setParam("parametro1", "valor1");
+        //requestPackage.setParam("parametro2", "valor2");
+        //requestPackage.setParam("parametro3", "valor3");
+        //requestPackage.setParam("parametro4", "valor4");
 
-        task.execute(requestPackage);
+        //task.execute(requestPackage);
 
     }
 
 
 
     // private class MyTask extends AsyncTask<String, String, String>{
-    private class MyTask extends AsyncTask<RequestPackage, String, String>{
+    private class MyTask extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           // cargarDatos("Inicio de carga");
-           progressBar.setVisibility(View.VISIBLE);
+            // cargarDatos("Inicio de carga");
+            progressBar.setVisibility(View.VISIBLE);
 
             /*
             if(taskList.size() == 0) {
@@ -166,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(RequestPackage... params) { // Recibimos un RequestPackage
+        protected String doInBackground(String... params) { // Recibimos un String. La URL
                 /*
                 for(int i=0; i<=5; i++){
                     //No podemos cambiar la interface en doInBackground pq es el hilo principal. Por eso podemos usar publishProgress dentro de el
@@ -177,8 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }*/
-            String content = HttpManager.getData(params[0]); //Cadena de contenido. Sin seguridad
-            // String content = HttpManager.getData(params[0], "pepito", "pepito"); //Cadena de contenido. Con seguridad
+            String content = HttpManager.getData(params[0]); // Cadena de contenido. Sin seguridad
             return content;
 
         }
@@ -186,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) { // result es el resultado de doInBackground
             super.onPostExecute(result);
-            // usuarioList = UsuarioXMLParser.parser(result); PARA PARSEAR EL XML
+            usuarioList = UsuarioJSONParser.parser(result); // PARA PARSEAR EL XML
 
             /*
             tasks.remove(this);
@@ -195,15 +175,16 @@ public class MainActivity extends AppCompatActivity {
             }
             */
 
+            /*
             if(result == null){
 
-                Toast.makeText(MainActivity.this, "No se pudo conectar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(XmlActivity.this, "No se pudo conectar", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.INVISIBLE);
                 return;
 
             }
-            //usuarioList = UsuarioJSONParser.parser(result);
-            cargarDatos(result);
+            */
+            cargarDatos();
             progressBar.setVisibility(View.INVISIBLE);
 
             //cargarDatos(result);

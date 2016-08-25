@@ -102,4 +102,39 @@ public class HttpManager {
         }
     }
 
+
+    public static String getData(String uri){ // Para el XML
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            StringBuilder stringBuilder = new StringBuilder();
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String line; //Cadena de texto que permitirá ir leyendo lo que va llegando
+            while((line = reader.readLine()) != null){
+                stringBuilder.append(line + "\n"); //append es para concatenar cadenas
+            }
+            return stringBuilder.toString();
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }finally { //Cada vez que leemos algo, un fichero, un buffer, ... es necesario cerrarlo o finalizarlo
+            if(reader != null){
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+
+
+    }
+
 }

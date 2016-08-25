@@ -1,33 +1,20 @@
 package service.webservice.facilito.codigo.com.ejemplocfwebservices;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+public class GetAndPostActivity extends AppCompatActivity {
 
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.Adapters.MyAdapter;
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.Adapters.UsuariosAdapter;
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.POJO.Usuario;
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.Parses.UsuarioJSONParser;
-import service.webservice.facilito.codigo.com.ejemplocfwebservices.Parses.UsuarioXMLParser;
-
-public class MainActivity extends AppCompatActivity {
-    Button buttonJSONparse, buttonXMLparse, buttonGETandPOST, botonGet, botonPost;
+    Button botonGet, botonPost;
     TextView textView;
     ProgressBar progressBar;
     String method;
@@ -45,42 +32,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_get_and_post);
 
         botonGet = (Button) findViewById(R.id.botonget);
         botonPost = (Button) findViewById(R.id.botonpost);
 
-        buttonJSONparse = (Button) findViewById(R.id.button_jsonparse);
-        buttonXMLparse = (Button) findViewById(R.id.button_xmlparse);
-        buttonGETandPOST = (Button) findViewById(R.id.button_getandpost);
-
-        buttonGETandPOST.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GetAndPostActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        buttonXMLparse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), XmlActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        buttonJSONparse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JsonActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //textView = (TextView) findViewById(R.id.textview);
-        //progressBar = (ProgressBar) findViewById(R.id.progressbar);
-        //progressBar.setVisibility(View.INVISIBLE);
+        textView = (TextView) findViewById(R.id.textview);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         // listView = (ListView) findViewById(R.id.listview);
         //recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -96,10 +55,50 @@ public class MainActivity extends AppCompatActivity {
         //taskList = new ArrayList<>(); // Inicializamos la lista
 
 
+
+        botonGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isOnLine()){
+                    // pedirDatos("http://www.harrika.net/usuarios.xml");
+                    // pedirDatos("http://maloschistes.com/maloschistes.com/jose/webservice.php"); //JSON sin seguridad
+                    // pedirDatos("http://maloschistes.com/maloschistes.com/jose/s/webservice.php");
+                    // pedirDatos("http://maloschistes.com/maloschistes.com/jose/webserviceI.php"); // Webservices con las imagenes en el apartado Twitter
+                    method = "GET";
+                    pedirDatos("http://maloschistes.com/maloschistes.com/jose/webservicesend.php"); // Web service enviando GET y POST
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Sin conexión", Toast.LENGTH_SHORT).show();
+                }
+                /*
+                for(int i=0; i<=100; i++){
+                    cargarDatos("Numero: "+i);
+                //}
+                task.execute();*/
+
+
+            }
+        });
+
+        botonPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isOnLine()){
+                    method= "POST";
+                    pedirDatos("http://maloschistes.com/maloschistes.com/jose/webservicesend.php"); // Web service enviando GET y POST
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Sin conexión", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
     }
 
     public void cargarDatos(String datos){
-       textView.append(datos+"\n"); // Unimos los datos (lo que sería la URL con los parametros GET)
+        textView.append(datos+"\n"); // Unimos los datos (lo que sería la URL con los parametros GET)
        /* if(usuarioList != null){
             for (Usuario usuario: usuarioList) { // foreach
                 textView.append(usuario.getNombre()+"\n");
@@ -148,13 +147,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     // private class MyTask extends AsyncTask<String, String, String>{
-    private class MyTask extends AsyncTask<RequestPackage, String, String>{
+    private class MyTask extends AsyncTask<RequestPackage, String, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           // cargarDatos("Inicio de carga");
-           progressBar.setVisibility(View.VISIBLE);
+            // cargarDatos("Inicio de carga");
+            progressBar.setVisibility(View.VISIBLE);
 
             /*
             if(taskList.size() == 0) {
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(result == null){
 
-                Toast.makeText(MainActivity.this, "No se pudo conectar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GetAndPostActivity.this, "No se pudo conectar", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.INVISIBLE);
                 return;
 
@@ -221,4 +220,5 @@ public class MainActivity extends AppCompatActivity {
             //cargarDatos(values[0]);
         }
     }
+
 }
