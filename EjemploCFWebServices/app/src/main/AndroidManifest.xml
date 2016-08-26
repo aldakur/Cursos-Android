@@ -20,7 +20,10 @@
         </activity>
         <activity android:name=".GetAndPostActivity" />
         <activity android:name=".XmlActivity" />
-        <activity android:name=".JsonActivity"></activity>
+        <activity android:name=".JsonActivity" />
+        <activity android:name=".JsonSecureActivity" />
+        <activity android:name=".DataInListViewActivity" />
+        <activity android:name=".DataInRecyclerViewActivity"></activity>
     </application>
 
 </manifest>

@@ -61,7 +61,7 @@ public class MyAdapter extends BaseAdapter{
 
         Usuario usuario = getItem(position);
         viewHolder.title.setText(usuario.getNombre());
-        Picasso.with(context).load(usuario.getTwitter()).into(viewHolder.imageView); // La url de la imagen esta en el atributo Twitter del usuario
+        Picasso.with(context).load(usuario.getTwitter()).into(viewHolder.imageView); // La url de la imagen esta en el atributo Twitter del usuario.
 
 
         return convertView;

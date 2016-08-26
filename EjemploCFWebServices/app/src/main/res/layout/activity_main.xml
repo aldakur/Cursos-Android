@@ -36,6 +36,25 @@
         android:layout_height="wrap_content"
         android:text="GET and POST"/>
 
+    <Button
+        android:id="@+id/button_getandpost_seguridad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GET and POST con Seguridad"/>
+
+    <Button
+        android:id="@+id/button_datos_en_listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos en ListView"/>
+
+    <Button
+        android:id="@+id/button_datos_en_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos en RecyclerView"/>
+
+
     <!--<TextView
         android:id="@+id/textview"
         android:layout_width="match_parent"
