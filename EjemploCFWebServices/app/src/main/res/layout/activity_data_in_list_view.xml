@@ -6,13 +6,6 @@
     android:orientation="vertical"
     tools:context="service.webservice.facilito.codigo.com.ejemplocfwebservices.MainActivity">
 
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>-->
-
     <ProgressBar
         android:id="@+id/progressbar_activity_data_in_list_view"
         android:layout_width="50dp"
@@ -24,16 +17,11 @@
         android:layout_height="wrap_content"
         android:text="Cargar datos en ListView"/>
 
-    <!--<TextView
-        android:id="@+id/textview_activity_data_in_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:scrollbars="vertical"/>-->
-
     <ListView
         android:id="@+id/listview_activity_data_in_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content">
+
+    </ListView>
 
 </LinearLayout>
