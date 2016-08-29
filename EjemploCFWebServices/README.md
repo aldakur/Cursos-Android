@@ -13,3 +13,4 @@ Proyecto realizado siguiendo el Curso de Código Facilito "Curso para consumir s
 + Peticiones GET y POST (con login y sin login)
 + Mostrar datos en ListView y RecyclerView
 + Mostrar imagenes desde un web services
++ Cambiar textView

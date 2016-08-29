@@ -54,6 +54,17 @@
         android:layout_height="wrap_content"
         android:text="Datos en RecyclerView"/>
 
+    <Button
+        android:id="@+id/button_cambiar_textview_con_un_hilo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar textview a tiempo real con un hilo"/>
+    <Button
+        android:id="@+id/button_cambiar_tamaño_textview_con_async"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar tamaño textview a tiempo real con asynck"/>
+
 
     <!--<TextView
         android:id="@+id/textview"

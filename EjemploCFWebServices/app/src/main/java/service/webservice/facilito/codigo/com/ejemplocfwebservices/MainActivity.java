@@ -28,7 +28,8 @@ import service.webservice.facilito.codigo.com.ejemplocfwebservices.Parses.Usuari
 
 public class MainActivity extends AppCompatActivity {
     Button buttonJSONparse, buttonXMLparse, buttonGETandPOST, buttonGETandPOSTSecure,
-            buttonDataInListView, buttonDataInRecyclerView, botonGet, botonPost;
+            buttonDataInListView, buttonDataInRecyclerView, buttonThreadChangesInterface,
+            buttonChangeTextViewSizeWithAsync, botonGet, botonPost;
     TextView textView;
     ProgressBar progressBar;
     String method;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         buttonGETandPOSTSecure = (Button) findViewById(R.id.button_getandpost_seguridad);
         buttonDataInListView = (Button) findViewById(R.id.button_datos_en_listview) ;
         buttonDataInRecyclerView = (Button) findViewById(R.id.button_datos_en_recyclerview) ;
+        buttonThreadChangesInterface = (Button) findViewById(R.id.button_cambiar_textview_con_un_hilo) ;
+        buttonChangeTextViewSizeWithAsync = (Button)findViewById(R.id.button_cambiar_tamaño_textview_con_async);
+
 
         buttonGETandPOST.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +106,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DataInRecyclerViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonThreadChangesInterface.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ThreadChangesInterfaceActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonChangeTextViewSizeWithAsync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChangeTextViewSizeWithAsyncActivity.class);
                 startActivity(intent);
             }
         });
