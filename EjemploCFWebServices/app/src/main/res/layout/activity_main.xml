@@ -6,18 +6,6 @@
     android:orientation="vertical"
     tools:context="service.webservice.facilito.codigo.com.ejemplocfwebservices.MainActivity">
 
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>-->
-
-    <!--<ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"/>-->
     <Button
         android:id="@+id/button_jsonparse"
         android:layout_width="wrap_content"
@@ -70,17 +58,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Crear hilos paralelos"/>
-
-    <!--<TextView
-        android:id="@+id/textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:scrollbars="vertical"/>
-
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>-->
 
 </LinearLayout>
