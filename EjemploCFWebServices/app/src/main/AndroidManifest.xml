@@ -25,7 +25,8 @@
         <activity android:name=".DataInListViewActivity" />
         <activity android:name=".DataInRecyclerViewActivity" />
         <activity android:name=".ThreadChangesInterfaceActivity" />
-        <activity android:name=".ChangeTextViewSizeWithAsyncActivity"></activity>
+        <activity android:name=".ChangeTextViewSizeWithAsyncActivity" />
+        <activity android:name=".TaskInParallelModeActivity"></activity>
     </application>
 
 </manifest>

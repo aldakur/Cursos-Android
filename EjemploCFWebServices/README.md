@@ -14,3 +14,4 @@ Proyecto realizado siguiendo el Curso de Código Facilito "Curso para consumir s
 + Mostrar datos en ListView y RecyclerView
 + Mostrar imagenes desde un web services
 + Cambiar textView
++ Iniciar multiples hilos paralelos

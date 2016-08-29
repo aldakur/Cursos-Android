@@ -29,7 +29,7 @@ import service.webservice.facilito.codigo.com.ejemplocfwebservices.Parses.Usuari
 public class MainActivity extends AppCompatActivity {
     Button buttonJSONparse, buttonXMLparse, buttonGETandPOST, buttonGETandPOSTSecure,
             buttonDataInListView, buttonDataInRecyclerView, buttonThreadChangesInterface,
-            buttonChangeTextViewSizeWithAsync, botonGet, botonPost;
+            buttonChangeTextViewSizeWithAsync, buttonTaskInParallelMode, botonGet, botonPost;
     TextView textView;
     ProgressBar progressBar;
     String method;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         buttonDataInRecyclerView = (Button) findViewById(R.id.button_datos_en_recyclerview) ;
         buttonThreadChangesInterface = (Button) findViewById(R.id.button_cambiar_textview_con_un_hilo) ;
         buttonChangeTextViewSizeWithAsync = (Button)findViewById(R.id.button_cambiar_tamaño_textview_con_async);
+        buttonTaskInParallelMode = (Button)findViewById(R.id.button_crear_hilos_paralelos);
 
 
         buttonGETandPOST.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +123,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChangeTextViewSizeWithAsyncActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonTaskInParallelMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TaskInParallelModeActivity.class);
                 startActivity(intent);
             }
         });

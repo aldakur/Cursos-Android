@@ -65,6 +65,11 @@
         android:layout_height="wrap_content"
         android:text="Cambiar tamaño textview a tiempo real con asynck"/>
 
+    <Button
+        android:id="@+id/button_crear_hilos_paralelos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear hilos paralelos"/>
 
     <!--<TextView
         android:id="@+id/textview"

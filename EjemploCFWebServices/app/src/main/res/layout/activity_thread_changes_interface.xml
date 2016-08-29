@@ -16,7 +16,7 @@
             android:id="@+id/textview_start_activity_thread_changes_interfaces"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Hello Word"
             android:scrollbars="vertical"/>
 
 
